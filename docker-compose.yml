@@ -1,0 +1,27 @@
+version: '3'
+services:
+    node:
+        platform: linux/x86_64
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile
+        volumes:
+            - ./source:/usr/src/app
+        command: sh -c "cd freelance && npm i && npm run dev"
+        ports:
+            - "3000:3000"
+        restart: always
+        depends_on:
+            - db
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+    db:
+        platform: linux/x86_64
+        image: mysql:5.7
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./db:/var/lib/mysql
