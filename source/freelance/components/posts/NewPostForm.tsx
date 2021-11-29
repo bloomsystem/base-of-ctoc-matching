@@ -25,16 +25,16 @@ const NewPostForm = () => {
     endDate: new Date()
   });
 
-  let langLists = [
-    { name: "HTML/CSS" }, { name: "C/C++" }, { name: "C#" }, { name: "Java" }, { name: "PHP" }, { name: "JavaScript" }, { name: "Python" }, { name: "Ruby" },, { name: "SQL" }
+  const langLists = [
+    { name: "HTML/CSS" }, { name: "C/C++" }, { name: "C#" }, { name: "Java" }, { name: "PHP" }, { name: "JavaScript" }, { name: "Python" }, { name: "Ruby" }, { name: "SQL" }
   ]
 
   const setLang = (lang: any) => {
     update({...form, selectedLang: lang.join(",")})
   }
 
-  let toolLists = [
-    { name: "Git" }, { name: "AWS" }, { name: "Docker" }, { name: " Slack" }, { name: "Figma/XD" }, { name: "Firebase" },, { name: "CI" }
+  const toolLists = [
+    { name: "Git" }, { name: "AWS" }, { name: "Docker" }, { name: " Slack" }, { name: "Figma/XD" }, { name: "Firebase" }, { name: "CI" }
   ]
 
   const setTool = (tool: any) => {
