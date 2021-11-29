@@ -1,4 +1,4 @@
-# This is just Base of CtoC Matching Service
+# Just base of CtoC Matching Service
 ![ss](https://user-images.githubusercontent.com/74640521/143842542-90def100-3566-4d62-af10-1aafd05d7f4b.png)
 
 # Languages, Packages
@@ -44,4 +44,12 @@ npx prisma migrate dev
 
 #run lint
 npm run lint
+```
+
+# For deploy
+
+https://freelance-hayatonagano.vercel.app/
+
+```
+vercel
 ```
