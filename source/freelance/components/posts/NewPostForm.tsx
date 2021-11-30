@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useMutation, useQueryClient } from "react-query";
+import { LoaderPart } from "../parts/loaderPart";
 import Label from "../parts/Label";
 import FormInput from "../parts/FormInput";
 import TextArea from "../parts/TextArea"
@@ -8,6 +9,7 @@ import CheckBox from "../parts/CheckBox";
 import MultiCheckBox from "../parts/MultiCheckBox";
 import SelectBox from "../parts/SelectBox";
 import FormDate from "../parts/DatePicker";
+import Alert from "../parts/Alert";
 import { createPost } from "../utils/fetchApi";
 
 const NewPostForm = () => {
@@ -43,7 +45,7 @@ const NewPostForm = () => {
   }
 
 
-  const { mutate } = useMutation(
+  const mutation = useMutation(
     () => {
       return createPost(JSON.stringify(form)) 
     }, {
@@ -55,7 +57,7 @@ const NewPostForm = () => {
 
   const saveTodo = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    mutate();
+    mutation.mutate();
   };
 
   return (
@@ -138,6 +140,10 @@ const NewPostForm = () => {
         checked={form.isMember}
         action={() => update({ ...form, isMember: !form.isMember })}
       />
+
+      {mutation.isLoading ? ( <LoaderPart loading={mutation.isLoading} /> ) : null}
+
+      {mutation.isSuccess ? ( <Alert color="success" message="投稿しました" /> ) : null}
 
       <Button
         text="新規登録"
