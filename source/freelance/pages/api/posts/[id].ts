@@ -24,9 +24,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .catch((e) => {
             throw e
         })
-        .finally(async () => {
-            await prisma.$disconnect()
-        })
         return res.status(200).json(post);
     }
 };
