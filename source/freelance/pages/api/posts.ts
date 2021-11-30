@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/client";
-
-const prisma = new PrismaClient();
+import prisma from './client'
 
 type Data = {
     postType: string;

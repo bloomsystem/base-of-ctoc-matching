@@ -1,9 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 import Adapters from "next-auth/adapters";
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import prisma from '../client'
 
 export default NextAuth({
     // 1つ以上の認証プロバイダーを構成
