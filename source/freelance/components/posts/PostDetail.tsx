@@ -4,25 +4,24 @@ import { Post } from "@prisma/client";
 import { LoaderPart } from "../parts/loaderPart";
 import PageHeader from '../../components/parts/PageHeader';
 import SmallAvater from "../parts/SmallAvater";
+import Error from "../parts/Error"
 import { dateFormat } from "../utils/dayjs";
+import { fetchPost } from "../utils/fetchApi";
 
 
 type props = {
   postId: string|string[]|undefined
 }
 
-const fetchPost = async (props: props) => {
-  const res = await fetch(`/api/posts/${props.postId}`)
-    return res.json()
-}
-
 const PostDetail = (props: props) => {
-  const { data: post, isLoading } = useQuery<Post|any>(
-    ["post", props.postId], async () => fetchPost(props)
+  const { data: post, isLoading, isError } = useQuery<Post|any>(
+    ["post", props.postId], async () => fetchPost(props.postId)
   )
 
   if(isLoading) return <LoaderPart isLoading={isLoading}/>
-  
+
+  if(isError) return ( <Error/> )
+
   if (post === undefined) return (
     <div className="md:flex md:space-x-4 my-2">
         <div className="bg-white shadow appearance-none border rounded w-full flex-1 p-4 mb-2">

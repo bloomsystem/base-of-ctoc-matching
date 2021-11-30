@@ -6,15 +6,18 @@ import SmallAvater from "../parts/SmallAvater";
 import Link from 'next/link'
 import { dateFormat } from "../utils/dayjs";
 import Badge from "../parts/Badge";
+import { fetchPosts } from "../utils/fetchApi";
+import Error from "../parts/Error"
 
 export const PostList = () => {
 
-    const { data: posts, isLoading } = useQuery<any[]>("posts", async () => {
-        const res = await fetch("/api/posts")
-        return res.json()
-    })
+    const { data: posts, isLoading, isError } = useQuery<any[]>(
+        "posts", async () => fetchPosts()
+    )
 
     if(isLoading) return <LoaderPart isLoading={isLoading}/>
+
+    if(isError) return ( <Error/> )
 
     if (!posts?.length || undefined) return (
             <div className="md:flex md:space-x-4 my-2">

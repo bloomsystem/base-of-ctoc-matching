@@ -8,6 +8,7 @@ import CheckBox from "../parts/CheckBox";
 import MultiCheckBox from "../parts/MultiCheckBox";
 import SelectBox from "../parts/SelectBox";
 import FormDate from "../parts/DatePicker";
+import { createPost } from "../utils/fetchApi";
 
 const NewPostForm = () => {
   const queryClient = useQueryClient();
@@ -44,12 +45,8 @@ const NewPostForm = () => {
 
   const { mutate } = useMutation(
     () => {
-      return fetch("/api/posts", {
-        method: "POST",
-        body: JSON.stringify(form),
-      });
-    },
-    {
+      return createPost(JSON.stringify(form)) 
+    }, {
       onSuccess: () => {
         queryClient.invalidateQueries("posts");
       },
