@@ -8,7 +8,7 @@ import { dateFormat } from "../utils/dayjs";
 
 
 type props = {
-  postId: string|undefined
+  postId: string|string[]|undefined
 }
 
 const fetchPost = async (props: props) => {
