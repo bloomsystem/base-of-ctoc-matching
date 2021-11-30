@@ -8,14 +8,18 @@ import { dateFormat } from "../utils/dayjs";
 
 
 type props = {
-  postId: string | string[] | undefined
+  postId: string|undefined
+}
+
+const fetchPost = async (props: props) => {
+  const res = await fetch(`/api/posts/${props.postId}`)
+    return res.json()
 }
 
 const PostDetail = (props: props) => {
-  const { data: post, isLoading } = useQuery<Post | any>("post", async () => {
-    const res = await fetch(`/api/posts/${props.postId}`)
-    return res.json()
-  })
+  const { data: post, isLoading } = useQuery<Post|any>(
+    ["post", props.postId], async () => fetchPost(props)
+  )
 
   if(isLoading) return <LoaderPart isLoading={isLoading}/>
   
