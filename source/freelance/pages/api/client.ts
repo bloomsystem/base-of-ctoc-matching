@@ -1,24 +1,14 @@
 import { PrismaClient } from '@prisma/client'
 
-// Tips: https://qiita.com/Gma_Gama/items/5b637f746b8df62fcc62
-
 declare global {
-    var prisma: PrismaClient;
+    var prisma: PrismaClient | undefined
 }
 
-let prisma: PrismaClient;
-
-if (process.env.NODE_ENV === "production") {
-    prisma = new PrismaClient({
-        log: ["error"]
+export const prisma =
+    global.prisma || new PrismaClient({
+        log: ["query", "error", "info", "warn"]
     })
-} else {
-    if (!global.prisma) {
-        global.prisma = new PrismaClient({
-            log: ["query", "error", "info", "warn"]
-        })
-    }
-    prisma = global.prisma
-}
 
-export default prisma
+if (process.env.NODE_ENV !== 'production') global.prisma = prisma
+
+export default prisma;
