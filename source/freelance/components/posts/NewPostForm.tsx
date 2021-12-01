@@ -11,6 +11,8 @@ import SelectBox from "../parts/SelectBox";
 import FormDate from "../parts/DatePicker";
 import Alert from "../parts/Alert";
 import { createPost } from "../utils/fetchApi";
+import { useForm, Controller } from 'react-hook-form';
+import { postForm } from "../utils/interface";
 
 const NewPostForm = () => {
   const queryClient = useQueryClient();
@@ -27,6 +29,8 @@ const NewPostForm = () => {
     startDate: new Date(),
     endDate: new Date()
   });
+
+  const { register, formState: { errors }, handleSubmit, control } = useForm<postForm>();
 
   const langLists = [
     { name: "HTML/CSS" }, { name: "C/C++" }, { name: "C#" }, { name: "Java" }, { name: "PHP" }, { name: "JavaScript" }, { name: "Python" }, { name: "Ruby" }, { name: "SQL" }
@@ -46,8 +50,8 @@ const NewPostForm = () => {
 
 
   const mutation = useMutation(
-    () => {
-      return createPost(JSON.stringify(form)) 
+    (data: postForm) => {
+      return createPost(JSON.stringify(data)) 
     }, {
       onSuccess: () => {
         queryClient.invalidateQueries("posts");
@@ -55,36 +59,51 @@ const NewPostForm = () => {
     }
   );
 
-  const saveTodo = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
-    mutation.mutate();
+  const onSubmit = (data: postForm) => {
+    console.log("dar",data);
+    mutation.mutate(data);
   };
 
   return (
     <>
       <Label value="募集タイプ" />
-      <SelectBox
-        lists={["案件","学習"]}
-        value={form.postType}
-        action={(e:any) => update({ ...form, postType: e.target.value })}
-        helper={"※報酬が発生する場合は案件、報酬が発生しない場合は学習となります"}
+      <Controller
+        control={control}
+        name="postType"
+        defaultValue="案件"
+        render={({ field }) => (
+          <SelectBox
+            value={field.value}
+            lists={["案件","学習"]}
+            onChange={field.onChange}
+            helper={"※報酬が発生する場合は案件、報酬が発生しない場合は学習となります"}
+          />
+        )}
       />
 
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-1">
           <Label value="報酬形態" />
-          <SelectBox
-            lists={["請負(固定報酬)","準委任(時間給)"]}
-            value={form.rewardType}
-            action={(e:any) => update({ ...form, rewardType: e.target.value })}
+          <Controller
+            control={control}
+            name="rewardType"
+            defaultValue="請負(固定報酬)"
+            render={({ field }) => (
+              <SelectBox
+                value={field.value}
+                lists={["請負(固定報酬)","準委任(時間給)"]}
+                onChange={field.onChange}
+              />
+            )}
           />
         </div>
         <div className="col-span-1">
           <Label value="金額" />
           <FormInput
-            value={form.amount}
             type="number"
-            action={(e:any) => update({ ...form, amount: e.target.value })}
+            register={register}
+            label="amount"
+            defaultValue={0}
           />
         </div>
       </div>
@@ -107,10 +126,13 @@ const NewPostForm = () => {
 
       <Label value="タイトル" />
       <FormInput
-        value={form.title}
         placeholder="(例)Swiftでの個人アプリ開発ができるチームを募集します"
         type="text"
-        action={(e:any) => update({ ...form, title: e.target.value })}
+        register={register}
+        required
+        label="title"
+        errors={errors.title}
+        errMessage="タイトルは必須です"
       />
 
       <Label value="募集内容" />
@@ -147,7 +169,7 @@ const NewPostForm = () => {
 
       <Button
         text="新規登録"
-        action={saveTodo}
+        action={handleSubmit(onSubmit)}
       />
     </>
   );
