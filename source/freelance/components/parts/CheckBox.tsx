@@ -1,7 +1,7 @@
 type props = {
     value: string;
     checked: boolean;
-    action: any;
+    onChange: any;
 }
 
 const CheckBox = (props: props) => {
@@ -12,7 +12,7 @@ const CheckBox = (props: props) => {
                     type="checkbox" 
                     className="form-checkbox"
                     checked={props.checked}
-                    onChange={props.action}
+                    onChange={props.onChange}
                 />
                 <span className="ml-2">{props.value}</span>
             </label>

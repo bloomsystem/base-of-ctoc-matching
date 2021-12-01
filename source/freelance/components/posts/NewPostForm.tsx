@@ -111,17 +111,41 @@ const NewPostForm = () => {
       <Label value="期間"/>
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-1">
-          <FormDate
-            date={form.startDate}
-            setDate={(date: Date) => update({...form, startDate: date})}
+          <Controller
+            control={control}
+            name="startDate"
+            defaultValue={new Date()}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormDate
+                date={field.value}
+                onChange={field.onChange}
+                required
+                label="startDate"
+                errors={Boolean(errors.startDate)}
+                errMessage="開始日は必須です"
+              />
+            )}
           />
         </div>
         <div className="col-span-1">
-          <FormDate
-            date={form.endDate}
-            setDate={(date: Date) => update({...form, endDate: date})}
+          <Controller
+            control={control}
+            name="endDate"
+            defaultValue={new Date()}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormDate
+                date={field.value}
+                onChange={field.onChange}
+                required
+                label="endDate"
+                errors={Boolean(errors.endDate)}
+                errMessage="終了日は必須です"
+              />
+            )}
           />
-          </div>
+        </div>
       </div>
 
       <Label value="タイトル" />
@@ -160,10 +184,17 @@ const NewPostForm = () => {
       />
 
       <Label value="公開範囲" />
-      <CheckBox
-        value="会員ユーザーにのみ公開する"
-        checked={form.isMember}
-        action={() => update({ ...form, isMember: !form.isMember })}
+      <Controller
+        control={control}
+        name="isMember"
+        defaultValue={false}
+        render={({ field }) => (
+          <CheckBox
+            value="会員ユーザーにのみ公開する"
+            checked={field.value}
+            onChange={field.onChange}
+          />
+        )}
       />
 
       {mutation.isLoading ? ( <LoaderPart loading={mutation.isLoading} /> ) : null}
