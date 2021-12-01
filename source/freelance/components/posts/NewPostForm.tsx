@@ -137,11 +137,14 @@ const NewPostForm = () => {
 
       <Label value="募集内容" />
       <TextArea
-        value={form.body}
-        placeholder="(例)一緒に楽しみながらノウハウを共有してチーム開発ができることが第一目標です。"
+        label="body"
+        placeholder="(例)一緒に楽しみながらノウハßウを共有してチーム開発ができることが第一目標です。"
         rows={5}
-        action={(e:any) => update({ ...form, body: e.target.value })}
         helper="※募集内容はできるだけ詳しく記載ください"
+        required
+        errors={errors.body}
+        errMessage="募集内容は必須です"
+        register={register}
       />
 
       <Label value="使用言語" />
