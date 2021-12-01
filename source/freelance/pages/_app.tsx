@@ -7,9 +7,19 @@ import { useRef } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
   const queryClientRef:any = useRef();
+
   if (!queryClientRef.current) {
-    queryClientRef.current = new QueryClient();
+    queryClientRef.current = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+          refetchOnWindowFocus: false,
+          staleTime: Infinity,
+        },
+      },
+    });
   }
+
   return (
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
