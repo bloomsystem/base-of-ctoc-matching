@@ -5,7 +5,7 @@ export interface postForm {
     title: string,
     body: string,
     isMember: boolean,
-    selectedLang: string,
+    selectedLang: Array<string>,
     selectedTool: string,
     startDate: Date,
     endDate: Date

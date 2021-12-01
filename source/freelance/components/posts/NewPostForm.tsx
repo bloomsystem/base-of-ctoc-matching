@@ -30,24 +30,15 @@ const NewPostForm = () => {
     endDate: new Date()
   });
 
-  const { register, formState: { errors }, handleSubmit, control } = useForm<postForm>();
+  const { register, formState: { errors }, handleSubmit, control, setValue } = useForm<postForm>();
 
   const langLists = [
     { name: "HTML/CSS" }, { name: "C/C++" }, { name: "C#" }, { name: "Java" }, { name: "PHP" }, { name: "JavaScript" }, { name: "Python" }, { name: "Ruby" }, { name: "SQL" }
   ]
 
-  const setLang = (lang: any) => {
-    update({...form, selectedLang: lang.join(",")})
-  }
-
   const toolLists = [
     { name: "Git" }, { name: "AWS" }, { name: "Docker" }, { name: " Slack" }, { name: "Figma/XD" }, { name: "Firebase" }, { name: "CI" }
   ]
-
-  const setTool = (tool: any) => {
-    update({...form, selectedTool: tool.join(",")})
-  }
-
 
   const mutation = useMutation(
     (data: postForm) => {
@@ -172,15 +163,27 @@ const NewPostForm = () => {
       />
 
       <Label value="使用言語" />
-      <MultiCheckBox
-        data={langLists}
-        action={(e:any) => setLang(e)}
+      <Controller
+        control={control}
+        name="selectedLang"
+        render={() => (
+          <MultiCheckBox
+            data={langLists}
+            action={(e:any) => setValue("selectedLang", e.join(","))}
+          />
+        )}
       />
 
       <Label value="使用技術やツール等" />
-      <MultiCheckBox
-        data={toolLists}
-        action={(e:any) => setTool(e)}
+      <Controller
+        control={control}
+        name="selectedTool"
+        render={() => (
+          <MultiCheckBox
+            data={toolLists}
+            action={(e:any) => setValue("selectedTool", e.join(","))}
+          />
+        )}
       />
 
       <Label value="公開範囲" />

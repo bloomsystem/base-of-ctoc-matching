@@ -12,8 +12,10 @@ export function useMultipleChecked<T>(initVal?: T[]): useMultipleCheckedRet<T> {
     const toggleChecked = (tgt: T) => {
         if (checked.includes(tgt)) {
             setChecked([...checked.filter((item) => item !== tgt)]);
+            return [...checked.filter((item) => item !== tgt)]
         } else {
             setChecked([...checked.concat([tgt])]);
+            return [...checked.concat([tgt])]
         }
     };
 

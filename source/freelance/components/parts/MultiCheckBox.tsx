@@ -12,8 +12,8 @@ export default function MultiCheckBox(props: props) {
     } = useMultipleChecked<string>(props.data.map((row) => row.name));
 
     const change = (name: string) => {
-        toggleChecked(name)
-        props.action(checked)
+        const items = toggleChecked(name)
+        props.action(items)
     }
 
     return (
