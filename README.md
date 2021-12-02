@@ -11,6 +11,7 @@
  - prisma
  - react-query
  - Vercel
+ - react-hook-form
 
 # For development
 ## make bellow env file
