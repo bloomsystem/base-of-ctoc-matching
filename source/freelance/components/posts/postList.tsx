@@ -55,7 +55,7 @@ export const PostList = () => {
                             </p>
                             <Badge title={post.postType} key={index} type="square"/>
                             <Link href={`/posts/${post.id}`}>
-                                <div className="text-gray-900 font-bold text-xl my-2 truncate">
+                                <div className="text-gray-900 font-bold text-xl my-2 truncate hover:text-gray-500 cursor-pointer">
                                     {post.title}
                                 </div>
                             </Link>
