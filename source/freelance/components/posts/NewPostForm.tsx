@@ -16,19 +16,6 @@ import { postForm } from "../utils/interface";
 
 const NewPostForm = () => {
   const queryClient = useQueryClient();
-  
-  const [form, update] = React.useState({
-    postType: "",
-    rewardType: "",
-    amount: 0,
-    title: "",
-    body: "",
-    isMember: false,
-    selectedLang: "",
-    selectedTool: "",
-    startDate: new Date(),
-    endDate: new Date()
-  });
 
   const { register, formState: { errors }, handleSubmit, control, setValue } = useForm<postForm>();
 

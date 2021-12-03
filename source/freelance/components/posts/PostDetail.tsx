@@ -56,7 +56,7 @@ const PostDetail = (props: props) => {
             投稿日：{dateFormat(post.createdAt,"YYYY/MM/DD")} / 更新日{dateFormat(post.updatedAt,"YYYY/MM/DD")}
           </p>
           <Badge title={post.postType} type="square" />
-          <div className="text-gray-900 font-bold text-xl my-2 truncate">
+          <div className="text-gray-900 font-bold text-xl my-2">
             {post.title}
           </div>
           <div>
@@ -91,8 +91,13 @@ const PostDetail = (props: props) => {
         </div>
         <div className="col-span-4 lg:col-span-1">
           <div className="bg-white shadow appearance-none border w-full flex-1 p-4 rounded mb-2">
-            <span className="text-sm text-gray-600 mb-2 mr-2">投稿者</span>{post.User.name}
-            <SmallAvater image={post.User.image}/>
+            <p className="text-sm text-gray-600 mb-2 mr-2">投稿者</p>
+            <div className="flex items-center">
+              <SmallAvater image={post.User.image}/>
+              <div className="text-sm">
+                  <p className="text-gray-900 leading-none">{post.User.name}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
