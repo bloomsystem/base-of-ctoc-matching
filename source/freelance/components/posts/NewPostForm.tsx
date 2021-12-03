@@ -153,7 +153,7 @@ const NewPostForm = () => {
       <Label value="募集内容" />
       <TextArea
         label="body"
-        placeholder="(例)一緒に楽しみながらノウハßウを共有してチーム開発ができることが第一目標です。"
+        placeholder="(例)一緒に楽しみながらノウハウを共有してチーム開発ができることが第一目標です。"
         rows={5}
         helper="※募集内容はできるだけ詳しく記載ください"
         required
