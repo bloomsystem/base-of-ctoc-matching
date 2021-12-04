@@ -3,10 +3,6 @@ import { getSession } from "next-auth/client";
 import prisma from '../client'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const session = await getSession({ req });
-
-    if (!session) return res.status(401).end("Please log in to view");
-
     const postId = Number(req.query.id)
 
     if (req.method === "GET") {

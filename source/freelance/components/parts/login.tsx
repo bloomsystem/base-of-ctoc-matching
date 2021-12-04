@@ -1,17 +1,15 @@
 
 import { signIn } from 'next-auth/client'
-import Layout from '../components/layout'
-import Button from '../components/parts/Button'
+import Button from './Button'
 
 export const Login = () => {
     return (
-        <Layout>
-            <div className="container mx-auto my-4 py-4" >
-                <div className="p-8">
-                    <div className="bg-white rounded-lg shadow-xl">
-                        <div className="p-16">
-                        <div><img className="w-32 md:w-48 mx-auto" src="/login.jpg"/>
-
+        <div className="container mx-auto my-4 py-4" >
+            <div className="p-8">
+                <div className="bg-white rounded-lg shadow-xl">
+                    <div className="p-16">
+                        <div>
+                            <img className="w-32 md:w-48 mx-auto" src="/login.jpg"/>
                         </div>
                         <div className="mt-8 text-center">
                             <h1 className="font-bold text-lg text-gray-700 mb-1">サインインが必要です</h1>
@@ -21,11 +19,10 @@ export const Login = () => {
                                 action={() => { signIn() }}
                             />
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </Layout>
+        </div>
     )
 }
 

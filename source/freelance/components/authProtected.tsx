@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useSession } from 'next-auth/client';
-import { Login } from '../pages/login';
+import { Login } from './parts/login';
 
 type Props = {
     children?: ReactNode
