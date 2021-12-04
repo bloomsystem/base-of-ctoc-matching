@@ -5,15 +5,15 @@ import NewPostForm from '../../components/posts/NewPostForm';
 
 export default function Home() {
   return (
-    <AuthProtected>
-      <Layout
-        home
-      >
+    <Layout
+    home
+    >
+      <AuthProtected>
         <div className="container mx-auto py-4" >
           <PageHeader title="Posts"/>
           <NewPostForm/>
         </div>
-      </Layout>
-    </AuthProtected>
+      </AuthProtected>
+    </Layout>
   )
 }
